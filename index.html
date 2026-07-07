@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NABİZ - Şehrinin Nabzını Tut</title>
+<meta name="description" content="Mahallenin haberleri, duyurular, ilanlar, ustalar ve daha fazlası. NABİZ ile şehrinin nabzını gerçek zamanlı takip et.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #071B34; color: white; }
+  
+  nav { padding: 16px 48px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; background: #071B34; z-index: 100; }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo-icon { width: 44px; height: 44px; background: #071B34; border: 2px solid #FF8A00; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .logo-icon span { color: #FF8A00; font-weight: 900; font-size: 24px; position: absolute; }
+  .logo-icon svg { position: absolute; }
+  .logo-text { font-weight: 700; font-size: 20px; letter-spacing: 2px; color: white; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover { color: #FF8A00; }
+
+  .hero { padding: 80px 48px; text-align: center; }
+  .badge { display: inline-block; background: rgba(255,138,0,0.15); border: 1px solid rgba(255,138,0,0.3); border-radius: 20px; padding: 6px 18px; font-size: 12px; color: #FF8A00; margin-bottom: 28px; letter-spacing: 2px; font-weight: 600; }
+  .hero h1 { font-size: 52px; font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+  .hero h1 .white { color: #ffffff; }
+  .hero h1 .orange { color: #FF8A00; }
+  .hero p { color: rgba(255,255,255,0.6); font-size: 17px; max-width: 520px; margin: 0 auto 40px; line-height: 1.7; }
+  .btn-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: #FF8A00; color: white; padding: 16px 32px; border-radius: 14px; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; transition: background 0.2s; border: none; cursor: pointer; }
+  .btn-primary:hover { background: #e07800; }
+  .btn-secondary { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 16px 32px; border-radius: 14px; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; transition: background 0.2s; }
+  .btn-secondary:hover { background: rgba(255,255,255,0.15); }
+  .hero-note { color: rgba(255,255,255,0.3); font-size: 13px; margin-top: 18px; }
+  .btn-apk { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); border: 1px dashed rgba(255,138,0,0.5); color: #FF8A00; padding: 12px 24px; border-radius: 12px; font-weight: 600; font-size: 14px; text-decoration: none; transition: background 0.2s; }
+  .btn-apk:hover { background: rgba(255,138,0,0.1); }
+
+  .features { background: #0F3460; padding: 72px 48px; }
+  .section-title { text-align: center; margin-bottom: 48px; }
+  .section-title h2 { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+  .section-title p { color: rgba(255,255,255,0.5); font-size: 15px; }
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 860px; margin: 0 auto; }
+  .feature-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px 20px; text-align: center; transition: border-color 0.2s; }
+  .feature-card:hover { border-color: rgba(255,138,0,0.4); }
+  .feature-icon { width: 56px; height: 56px; background: rgba(255,138,0,0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+  .feature-icon i { font-size: 28px; color: #FF8A00; }
+  .feature-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .feature-card p { color: rgba(255,255,255,0.5); font-size: 13px; line-height: 1.6; }
+
+  .screenshots { padding: 72px 48px; background: #071B34; }
+  .screenshots-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 48px; }
+  .screenshot-frame { width: 160px; height: 280px; background: #0F3460; border-radius: 24px; border: 2px solid rgba(255,138,0,0.3); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; transition: border-color 0.2s; overflow: hidden; }
+  .screenshot-frame:hover { border-color: #FF8A00; }
+  .screenshot-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 22px; display: none; }
+  .screenshot-frame i { font-size: 36px; color: #FF8A00; }
+  .screenshot-frame span { font-size: 13px; color: rgba(255,255,255,0.5); }
+  .screenshots-note { text-align: center; color: rgba(255,255,255,0.3); font-size: 13px; margin-top: 20px; }
+
+  .stats { background: #0F3460; padding: 56px 48px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 800px; margin: 0 auto; text-align: center; }
+  .stat-item h3 { font-size: 36px; font-weight: 800; color: #FF8A00; margin-bottom: 8px; }
+  .stat-item p { color: rgba(255,255,255,0.6); font-size: 14px; }
+
+  .cta { padding: 72px 48px; text-align: center; background: #FF8A00; }
+  .cta h2 { font-size: 30px; font-weight: 700; margin-bottom: 10px; color: #071B34; }
+  .cta p { color: rgba(7,27,52,0.7); font-size: 15px; margin-bottom: 28px; }
+  .btn-dark { background: #071B34; color: white; padding: 14px 28px; border-radius: 12px; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; transition: opacity 0.2s; }
+  .btn-dark:hover { opacity: 0.85; }
+
+  footer { padding: 24px 48px; text-align: center; background: #050F1E; font-size: 13px; color: rgba(255,255,255,0.3); }
+  footer a { color: rgba(255,138,0,0.7); text-decoration: none; }
+  footer a:hover { color: #FF8A00; }
+
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 48px 20px; }
+    .hero h1 { font-size: 32px; }
+    .features { padding: 48px 20px; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .screenshots { padding: 48px 20px; }
+    .stats { padding: 48px 20px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .cta { padding: 48px 20px; }
+    footer { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">
+      <span>N</span>
+      <svg width="44" height="16" viewBox="0 0 44 16">
+        <polyline points="0,8 7,8 10,2 13,14 16,0 19,14 22,8 44,8" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+      </svg>
+    </div>
+    <span class="logo-text">NABİZ</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#ozellikler">Özellikler</a></li>
+    <li><a href="#ekranlar">Ekran Görüntüleri</a></li>
+    <li><a href="#indir">İndir</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="badge">ŞEHRİNİN NABZINI TUT</div>
+  <h1>
+    <span class="white">Şehrindeki Her Şey</span><br>
+    <span class="orange">Tek Uygulamada</span>
+  </h1>
+  <p>Mahallenin haberleri, duyurular, ilanlar, ustalar ve daha fazlası. NABİZ ile şehrinin nabzını gerçek zamanlı takip et.</p>
+  <div class="btn-group">
+    <a href="#" class="btn-primary">
+      <i class="ti ti-brand-google-play"></i>
+      Google Play'den İndir
+    </a>
+    <a href="#" class="btn-secondary">
+      <i class="ti ti-brand-apple"></i>
+      App Store'dan İndir
+    </a>
+  </div>
+  <p class="hero-note">Ücretsiz · Android & iOS</p>
+  <div style="margin-top: 16px;">
+    <a href="https://github.com/nurullah-coder/nabiz-indir/raw/main/nabiz.apk" id="apk-btn" class="btn-apk">
+      <i class="ti ti-download"></i>
+      Test APK İndir (Android)
+    </a>
+    <p style="color: rgba(255,255,255,0.25); font-size: 11px; margin-top: 8px;">
+      Play Store'a yüklenmeden önce test sürümü
+    </p>
+  </div>
+</section>
+
+<section class="features" id="ozellikler">
+  <div class="section-title">
+    <h2>Neden NABİZ?</h2>
+    <p>Şehrini tanı, gündemini takip et</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon"><i class="ti ti-speakerphone"></i></div>
+      <h3>Anlık Duyurular</h3>
+      <p>Belediye ve mahalle duyurularını anında öğren</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><i class="ti ti-map-pin"></i></div>
+      <h3>81 İl Desteği</h3>
+      <p>Türkiye'nin her iline ait güncel içerikler</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><i class="ti ti-tag"></i></div>
+      <h3>Ücretsiz İlanlar</h3>
+      <p>İkinci el, emlak ve hizmet ilanları ver</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><i class="ti ti-tool"></i></div>
+      <h3>Usta Bul</h3>
+      <p>Yakınındaki güvenilir ustaları keşfet</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><i class="ti ti-car"></i></div>
+      <h3>Trafik & Otopark</h3>
+      <p>Anlık trafik durumu ve boş otopark bilgisi</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><i class="ti ti-heart-handshake"></i></div>
+      <h3>Yardımlaşma</h3>
+      <p>Komşularınla dayanışma içinde ol</p>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="stats-grid">
+    <div class="stat-item"><h3>81</h3><p>İl Desteği</p></div>
+    <div class="stat-item"><h3>20+</h3><p>Ekran & Özellik</p></div>
+    <div class="stat-item"><h3>%100</h3><p>Ücretsiz</p></div>
+    <div class="stat-item"><h3>7/24</h3><p>Anlık Güncel</p></div>
+  </div>
+</section>
+
+<section class="screenshots" id="ekranlar">
+  <div class="section-title">
+    <h2>Ekran Görüntüleri</h2>
+    <p>Uygulamayı keşfet</p>
+  </div>
+  <div class="screenshots-grid">
+    <div class="screenshot-frame">
+      <i class="ti ti-home"></i>
+      <span>Ana Sayfa</span>
+    </div>
+    <div class="screenshot-frame">
+      <i class="ti ti-building"></i>
+      <span>Şehir</span>
+    </div>
+    <div class="screenshot-frame">
+      <i class="ti ti-map"></i>
+      <span>Mahalle</span>
+    </div>
+    <div class="screenshot-frame">
+      <i class="ti ti-speakerphone"></i>
+      <span>Duyurular</span>
+    </div>
+    <div class="screenshot-frame">
+      <i class="ti ti-user"></i>
+      <span>Profil</span>
+    </div>
+  </div>
+  <p class="screenshots-note">Gerçek ekran görüntüleri yakında eklenecek</p>
+</section>
+
+<section class="cta" id="indir">
+  <h2>Hemen İndir, Ücretsiz Başla</h2>
+  <p>Android ve iOS için mevcut</p>
+  <div class="btn-group">
+    <a href="#" class="btn-dark">
+      <i class="ti ti-brand-google-play"></i>
+      Google Play
+    </a>
+    <a href="#" class="btn-dark">
+      <i class="ti ti-brand-apple"></i>
+      App Store
+    </a>
+  </div>
+</section>
+
+<footer>
+  © 2026 NABİZ &nbsp;·&nbsp;
+  <a href="/gizlilik">Gizlilik Politikası</a> &nbsp;·&nbsp;
+  <a href="/kullanim">Kullanım Şartları</a> &nbsp;·&nbsp;
+  <a href="mailto:sehrinnabzinitut@gmail.com">İletişim</a>
+</footer>
+
+</body>
+</html>
